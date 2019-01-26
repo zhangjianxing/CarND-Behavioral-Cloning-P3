@@ -75,6 +75,8 @@ that the vehicle could stay on the track.
 after testing I find the default learning rate = 0.001 is good enough to train the model. 
 So I do not need to tune it. 
 
+However, I do tune the dropout layer, aiming improve the result.
+
 #### 4. Appropriate training data
 
 Training data was chosen to keep the vehicle driving on the road. 
@@ -195,6 +197,11 @@ Thus, in each iteration, there can hardly contains duplicate input, which will p
 
 * I random choose center/left/right camera and tune the steering angle by 0.2 as mentioned in class.
 
+
+* I found the left/right camera is kind of 60 pixels shift from center camera. 
+Thus, I randomly shift the chosen camera image by -60\~60 pixels and 
+correct the steering angle by -0.2\~0.2. Thus, we can further augment the data.
+
 ```python
 import numpy as np
 import cv2
@@ -210,10 +217,6 @@ def _random_select_camera(line, adj_rate=0.2):
     return image, steering
 ``` 
 
-* I found the left/right camera is kind of 60 pixels shift from center camera. 
-Thus, I randomly shift the chosen camera image by -60~60 pixels and 
-correct the steering angle by -0.2~0.2. Thus, we can further augment the data.
-
 Here is an example for shifting image:
 
 ![alt text][center]
@@ -224,8 +227,3 @@ Here is an example for shifting image:
 
 ![alt text][center]
 ![alt text][center_flip]
-
-Then I repeated this process on track two in order to get more data points.
-
-
-After the collection process, I had X number of data points. 
