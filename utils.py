@@ -54,6 +54,12 @@ def _random_drop_range_steering(samples, lower_bound=-.2, upper_bound=.2, drop_r
 
 
 def get_sample(paths=[DATA_PATH], show_plt=False):
+    """
+    read samples from data listed in paths. The output can be used in generator to generate feeding data
+    :param paths:
+    :param show_plt:
+    :return:
+    """
     samples = []
     for path in paths:
         samples = samples + _read_file(path)
@@ -111,7 +117,16 @@ def _shift_img(img, x_shift=0, y_shift=0):
 
 
 def trans_image(img, angle, x_trans_limit=60., adj_rate=0.2, y_trans_limit=30, y_adj_mult=0.1):
-
+    """
+    randomly shifts image and tune the steering angle
+    :param img:
+    :param angle:
+    :param x_trans_limit:
+    :param adj_rate:
+    :param y_trans_limit:
+    :param y_adj_mult:
+    :return:
+    """
     # x-axis shift changes angle. we assume 60 pixels make adj_rate shift
     x_shift = np.random.uniform(-x_trans_limit, x_trans_limit)
     img = _shift_img(img, x_shift=x_shift)
